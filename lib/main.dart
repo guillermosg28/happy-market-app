@@ -1,7 +1,12 @@
+import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+      ),
       home: HomePage(),
     ));
 
@@ -12,10 +17,15 @@ class HomePage extends StatefulWidget {
 
 class _MyAppState extends State<HomePage> {
   bool _obscureText = true;
-  bool passenable = true;
 
   @override
   Widget build(BuildContext context) {
+    void _toggleObscured() {
+      setState(() {
+        _obscureText = !_obscureText;
+      });
+    }
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -24,20 +34,20 @@ class _MyAppState extends State<HomePage> {
               children: <Widget>[
                 Container(
                   height: MediaQuery.of(context).size.height / 2.9,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/images/header.png'),
                           fit: BoxFit.fitHeight)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.00),
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.00),
                   child: Image(
                     image: AssetImage('assets/images/logo_rojo.png'),
                     width: 150,
                   ),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.00),
+                const Padding(
+                    padding: EdgeInsets.only(top: 20.00),
                     child: Text(
                       'Iniciar Sesión',
                       textDirection: TextDirection.ltr,
@@ -55,14 +65,18 @@ class _MyAppState extends State<HomePage> {
                     autofocus: false,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      //labelStyle: Theme.of(context).textTheme.subhead,
                       labelText: "DNI",
-                      contentPadding: EdgeInsets.all(15.0),
+                      contentPadding: const EdgeInsets.all(15.0),
                       isDense: true,
                       fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.account_box, size: 24),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(),
+                        borderSide: const BorderSide(),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 2, color: Color.fromRGBO(170, 0, 0, 1)),
                       ),
                     ),
                     //fillColor: Colors.green
@@ -72,35 +86,27 @@ class _MyAppState extends State<HomePage> {
                   padding: const EdgeInsets.only(
                       top: 20.00, left: 25.00, right: 25.00),
                   child: TextFormField(
-                    autofocus: false,
                     keyboardType: TextInputType.text,
-                    obscureText: true,
+                    obscureText: _obscureText,
                     decoration: InputDecoration(
-                        //labelStyle: Theme.of(context).textTheme.subhead,
-                        labelText: "Contraseña",
-                        contentPadding: EdgeInsets.all(15.0),
-                        isDense: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(),
+                      labelText: "Contraseña",
+                      contentPadding: const EdgeInsets.all(15.0),
+                      isDense: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: const BorderSide(),
+                      ),
+                      prefixIcon: const Icon(Icons.lock_rounded, size: 24),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
-
-                        icon: Icon(passenable == true
-                            ? Icons.visibility
-                            : Icons.padding)),
-
-                    // suffixIcon: GestureDetector(
-                    //   onTap: () {},
-                    //   child: Icon(
-                    //     _obscureText
-                    //         ? Icons.visibility
-                    //         : Icons.visibility_off,
-                    //     semanticLabel:
-                    //         _obscureText ? 'show password' : 'hide password',
-                    //   ),
-                    // ),
-                    //fillColor: Colors.green
+                        onPressed: _toggleObscured,
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -109,10 +115,10 @@ class _MyAppState extends State<HomePage> {
                   child: TextButton(
                     style: TextButton.styleFrom(
                         primary: Colors.white,
-                        minimumSize: Size.fromHeight(48),
-                        backgroundColor: Color.fromRGBO(229, 0, 1, 1)),
+                        minimumSize: const Size.fromHeight(48),
+                        backgroundColor: const Color.fromRGBO(229, 0, 1, 1)),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Ingresar',
                       style: TextStyle(
                         fontSize: 18,
