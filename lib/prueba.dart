@@ -1,78 +1,72 @@
+import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Text Field Focus',
-      home: MyCustomForm(),
-    );
-  }
-}
-
-// Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
-
-  @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
-}
-
-// Define a corresponding State class.
-// This class holds data related to the form.
-class _MyCustomFormState extends State<MyCustomForm> {
-  // Define the focus node. To manage the lifecycle, create the FocusNode in
-  // the initState method, and clean it up in the dispose method.
-  late FocusNode myFocusNode;
-
-  @override
-  void initState() {
-    super.initState();
-
-    myFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    // Clean up the focus node when the Form is disposed.
-    myFocusNode.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Text Field Focus'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // The first text field is focused on as soon as the app starts.
-            const TextField(
-              autofocus: true,
-            ),
-            // The second text field is focused on when a user taps the
-            // FloatingActionButton.
-            TextField(
-              focusNode: myFocusNode,
-            ),
-          ],
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+        primarySwatch: MaterialColor(
+          const Color.fromRGBO(229, 0, 1, 1).value,
+          const <int, Color>{
+            50: Color.fromRGBO(229, 0, 1, 0.1),
+            100: Color.fromRGBO(229, 0, 1, 0.2),
+            200: Color.fromRGBO(229, 0, 1, 0.3),
+            300: Color.fromRGBO(229, 0, 1, 0.4),
+            400: Color.fromRGBO(229, 0, 1, 0.5),
+            500: Color.fromRGBO(229, 0, 1, 0.6),
+            600: Color.fromRGBO(229, 0, 1, 0.7),
+            700: Color.fromRGBO(229, 0, 1, 0.8),
+            800: Color.fromRGBO(229, 0, 1, 0.9),
+            900: Color.fromRGBO(229, 0, 1, 1),
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        // When the button is pressed,
-        // give focus to the text field using myFocusNode.
-        onPressed: () => myFocusNode.requestFocus(),
-        tooltip: 'Focus Second Text Field',
-        child: const Icon(Icons.edit),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      home: HomePage(),
+    ));
+
+class HomePage extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<HomePage> {
+  final _formKey = GlobalKey<FormState>();
+
+  Widget _buildForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            key: Key('name'),
+            autofillHints: [AutofillHints.name],
+            decoration: InputDecoration(labelText: 'Name'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onVerticalDragEnd: (DragEndDetails details) =>
+          FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Woolha.com Flutter Tutorial'),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(15),
+          child: Center(
+            child: _buildForm(),
+          ),
+        ),
+      ),
     );
   }
 }

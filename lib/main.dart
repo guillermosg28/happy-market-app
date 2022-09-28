@@ -1,11 +1,24 @@
-import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.amber,
+        primarySwatch: MaterialColor(
+          const Color.fromRGBO(229, 0, 1, 1).value,
+          const <int, Color>{
+            50: Color.fromRGBO(229, 0, 1, 0.1),
+            100: Color.fromRGBO(229, 0, 1, 0.2),
+            200: Color.fromRGBO(229, 0, 1, 0.3),
+            300: Color.fromRGBO(229, 0, 1, 0.4),
+            400: Color.fromRGBO(229, 0, 1, 0.5),
+            500: Color.fromRGBO(229, 0, 1, 0.6),
+            600: Color.fromRGBO(229, 0, 1, 0.7),
+            700: Color.fromRGBO(229, 0, 1, 0.8),
+            800: Color.fromRGBO(229, 0, 1, 0.9),
+            900: Color.fromRGBO(229, 0, 1, 1),
+          },
+        ),
       ),
       home: HomePage(),
     ));
@@ -18,6 +31,11 @@ class HomePage extends StatefulWidget {
 class _MyAppState extends State<HomePage> {
   bool _obscureText = true;
 
+  final FocusNode focusNodeEmail = FocusNode();
+  final FocusNode focusNodePassword = FocusNode();
+  TextEditingController loginEmailController = TextEditingController();
+  TextEditingController loginPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     void _toggleObscured() {
@@ -26,10 +44,13 @@ class _MyAppState extends State<HomePage> {
       });
     }
 
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
+    return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onVerticalDragEnd: (DragEndDetails details) =>
+            FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
@@ -73,10 +94,6 @@ class _MyAppState extends State<HomePage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: const BorderSide(),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 2, color: Color.fromRGBO(170, 0, 0, 1)),
                       ),
                     ),
                     //fillColor: Colors.green
@@ -131,6 +148,7 @@ class _MyAppState extends State<HomePage> {
               ],
             ),
           ),
-        ));
+        )
+    );
   }
 }
