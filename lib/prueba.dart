@@ -1,72 +1,136 @@
-import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:happy_market_app/constants.dart';
 
-void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.amber,
-        primarySwatch: MaterialColor(
-          const Color.fromRGBO(229, 0, 1, 1).value,
-          const <int, Color>{
-            50: Color.fromRGBO(229, 0, 1, 0.1),
-            100: Color.fromRGBO(229, 0, 1, 0.2),
-            200: Color.fromRGBO(229, 0, 1, 0.3),
-            300: Color.fromRGBO(229, 0, 1, 0.4),
-            400: Color.fromRGBO(229, 0, 1, 0.5),
-            500: Color.fromRGBO(229, 0, 1, 0.6),
-            600: Color.fromRGBO(229, 0, 1, 0.7),
-            700: Color.fromRGBO(229, 0, 1, 0.8),
-            800: Color.fromRGBO(229, 0, 1, 0.9),
-            900: Color.fromRGBO(229, 0, 1, 1),
-          },
-        ),
-      ),
-      home: HomePage(),
-    ));
+void main() => runApp(MyApp());
 
-class HomePage extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DashBoard(),
+    );
+  }
 }
 
-class _MyAppState extends State<HomePage> {
-  final _formKey = GlobalKey<FormState>();
+class DashBoard extends StatelessWidget {
+  late Size size;
 
-  Widget _buildForm() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            key: Key('name'),
-            autofillHints: [AutofillHints.name],
-            decoration: InputDecoration(labelText: 'Name'),
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.pink,
+          leading: Icon(Icons.menu),
+          title: Text(
+            "Menu",
+            textAlign: TextAlign.center,
           ),
-        ],
+        ),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  children: <Widget>[
+                    createGridItem(0),
+                    createGridItem(1),
+                    createGridItem(2),
+                    createGridItem(3),
+                    createGridItem(4),
+                    createGridItem(5),
+                    createGridItem(6),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      onVerticalDragEnd: (DragEndDetails details) =>
-          FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Woolha.com Flutter Tutorial'),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(15),
-          child: Center(
-            child: _buildForm(),
+  Widget createGridItem(int position) {
+    var name_menu = '';
+    var url_image = 'assets/images/menu/ventas.png';
+
+    switch (position) {
+      case 0:
+        name_menu = 'Ventas';
+        url_image = 'assets/images/menu/ventas.png';
+        break;
+      case 1:
+        name_menu = 'Compras';
+        url_image = 'assets/images/menu/compras.png';
+        break;
+      case 2:
+        name_menu = 'Productos';
+        url_image = 'assets/images/menu/productos.png';
+        break;
+      case 3:
+        name_menu = 'Anexos';
+        url_image = 'assets/images/menu/anexos.png';
+        break;
+      case 4:
+        name_menu = 'Transferir';
+        url_image = 'assets/images/menu/transferir.png';
+        break;
+      case 5:
+        name_menu = 'Reportes';
+        url_image = 'assets/images/menu/reportes.png';
+        break;
+      case 6:
+        name_menu = 'Configuración';
+        url_image = 'assets/images/menu/configuracion.png';
+        break;
+    }
+
+    return Builder(builder: (context) {
+      return Padding(
+        padding:
+            const EdgeInsets.only(left: 10.0, right: 10, bottom: 17, top: 17),
+        child: Card(
+          elevation: 10,
+          color: happySecondaryColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(19)),
+          ),
+          child: InkWell(
+            onTap: () {},
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Image(
+                    image: AssetImage(url_image),
+                    width: 65,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      name_menu,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Outfit',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
