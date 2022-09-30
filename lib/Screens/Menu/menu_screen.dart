@@ -17,7 +17,8 @@ class _MenuState extends State<MenuScreen> {
         children: <Widget>[
           Stack(children: <Widget>[
             Container(
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/ 4.5),
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 4.5),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: GridView.count(
@@ -33,8 +34,7 @@ class _MenuState extends State<MenuScreen> {
                       createGridMenuItem(6),
                     ],
                   ),
-                )
-            )
+                ))
           ]),
           Container(
             height: MediaQuery.of(context).size.height / 3.8,
@@ -42,8 +42,28 @@ class _MenuState extends State<MenuScreen> {
                 image: DecorationImage(
                     image: AssetImage('assets/images/menu_header.png'),
                     fit: BoxFit.fitHeight)),
-            child: Stack(
-                children: <Widget>[
+            child: Stack(children: <Widget>[
+              Positioned(
+                child: Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 60.00,right: 20.00),
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        height: 35.0,
+                        width: 35.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(35.00),
+                          image: const DecorationImage(
+                            image: AssetImage("assets/images/users/guillermo.jpg"),
+                            fit: BoxFit.cover, //change image fill type
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+              ),
               Positioned(
                   child: Container(
                 margin: const EdgeInsets.only(top: 20),
@@ -74,7 +94,6 @@ class _MenuState extends State<MenuScreen> {
               )),
             ]),
           ),
-
         ],
       ),
     );
