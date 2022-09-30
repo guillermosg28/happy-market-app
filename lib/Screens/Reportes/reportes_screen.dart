@@ -19,7 +19,7 @@ class _MyAppState extends State<ReportesScreen> {
             ),
             body: SingleChildScrollView(
                 child: Column(children: const <Widget>[
-                  Text("Hola")
+                  Text("Diseñar reportes"),
                 ]
                 )
             )

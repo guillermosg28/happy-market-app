@@ -19,7 +19,7 @@ class _MyAppState extends State<ConfiguracionScreen> {
             ),
             body: SingleChildScrollView(
                 child: Column(children: const <Widget>[
-                  Text("Hola")
+                  Text("Diseñar configuración"),
                 ]
                 )
             )

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happy_market_app/constants.dart';
 import 'components/card_menu.dart';
-
+import 'package:happy_market_app/Screens/Perfil/perfil_screen.dart';
 class MenuScreen extends StatefulWidget {
   @override
   _MenuState createState() => _MenuState();
@@ -48,17 +48,21 @@ class _MenuState extends State<MenuScreen> {
                     alignment: Alignment.topRight,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 60.00,right: 20.00),
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        height: 35.0,
-                        width: 35.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(35.00),
-                          image: const DecorationImage(
-                            image: AssetImage("assets/images/users/guillermo.jpg"),
-                            fit: BoxFit.cover, //change image fill type
-                          ),
+                      child: IconButton(
+                        icon: const CircleAvatar(
+                          backgroundImage: AssetImage("assets/images/users/guillermo.jpg"),
+                          radius: 19.0,
                         ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return PerfilScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
