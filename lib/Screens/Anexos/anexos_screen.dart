@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_market_app/Widgets/app_bar_component.dart';
 
 class AnexosScreen extends StatefulWidget {
   @override
@@ -14,8 +15,8 @@ class _MyAppState extends State<AnexosScreen> {
             FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: Text("Anexos"),
+            appBar: const AppBarHappyMarket(
+              title: 'Anexos',
             ),
             body: SingleChildScrollView(
                 child: Column(children: const <Widget>[

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:happy_market_app/Screens/Perfil/perfil_screen.dart';
-import 'package:happy_market_app/Components/app_bar_component.dart';
+import 'package:happy_market_app/Widgets/app_bar_component.dart';
 
 class VentasScreen extends StatefulWidget {
   @override
@@ -16,7 +15,9 @@ class _MyAppState extends State<VentasScreen> {
             FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
             backgroundColor: Colors.white,
-            //appBar: appBarHappyMarket(text: "a"),
+            appBar: const AppBarHappyMarket(
+              title: 'Ventas',
+            ),
             body: SingleChildScrollView(
                 child: Column(children: const <Widget>[
                   Text("Diseñar ventas"),

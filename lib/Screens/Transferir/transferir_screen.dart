@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happy_market_app/Widgets/app_bar_component.dart';
 
 class TransferirScreen extends StatefulWidget {
   @override
@@ -14,8 +15,8 @@ class _MyAppState extends State<TransferirScreen> {
             FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: Text("Transferir"),
+            appBar: const AppBarHappyMarket(
+              title: 'Transferir',
             ),
             body: SingleChildScrollView(
                 child: Column(children: const <Widget>[
